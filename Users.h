@@ -8,11 +8,32 @@
 #ifndef USERS_H
 #define USERS_H
 
+#include <iostream>
+#include <string>
+
 class Users
 {
     public:
 
+    Users();
+
+    ~Users();
+
+    add_User(std::string name);
+
     private:
+
+    rotateRight();
+    rotateLeft();
+    // Not done in function definition
+
+    struct Node {
+        std::string name;
+        int graphIndex;
+        int fileIndex;
+        Node *left, *right, *parent;
+    }
+    // Possibly will need to be updated
 
 };
 
