@@ -28,11 +28,11 @@ class Users
 
     ~Users();
 
-    void add_User(std::string name);
+    void add_user(std::string name);
 
-    std::string find_User(std::string name);
+    std::string find_user(std::string name);
 
-    vector<string> range_search(std::string name1, std::string name2);
+    vector<std::string> range_search(std::string name1, std::string name2);
 
     private:
 

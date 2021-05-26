@@ -15,4 +15,22 @@ Users::Users() {
 
 Users::~Users() {}
 
+void Users::add_user(string name) {
+    return;
+}
 
+string User::find_user(string name) {
+    return "";
+}
+
+vector<string> User::range_search(string name1, string name2) {
+    return "";
+}
+
+void Users::rotateLeft() {
+    return;
+}
+
+void Users::rotateRight() {
+    return;
+}
