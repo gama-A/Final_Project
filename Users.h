@@ -16,6 +16,8 @@ struct Node {
     int graphIndex;
     int fileIndex;
     Node *left, *right, *parent;
+    bool color;
+    // for color: true/1 = black, false/0 = red
 };
 
 class Users
