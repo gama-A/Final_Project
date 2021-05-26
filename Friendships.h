@@ -12,11 +12,19 @@
 #include <string>
 #include <vector>
 
+struct Node_Graph {
+    string name;
+    int fileIndex;
+    Node_Graph *next;
+};
+
 class Friendships
 {
     public:
 
     private:
+
+    vector<Node_Graph*> friends;
 
 };
 

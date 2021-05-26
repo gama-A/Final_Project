@@ -28,7 +28,7 @@ class Users
 
     ~Users();
 
-    void add_user(std::string name);
+    void add_user(std::string name, int g_index);
 
     std::string find_user(std::string name);
 
@@ -38,10 +38,11 @@ class Users
 
     Node* root;
 
-    void rotateRight();
-    void rotateLeft();
-    // Not done in function definition
-
+    void rotateRight(Node* root, Node* p);
+    void rotateLeft(Node* root, Node* p);
+    
+    void fixStructure(Node* root, Node* p);
+    
 };
 
 #define

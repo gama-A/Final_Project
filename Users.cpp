@@ -26,11 +26,17 @@ void clearTree(Node *p) {
     delete p;
 }
 
-void Users::add_user(string name) {
+void Users::fixStructure(Node *root, Node *p) {
+    return;
+}
+
+void Users::add_user(string name, int g_index) {
     Node *p = new Node;
     p->name = name;
+    p->graphIndex = g_index;
     p->color = 0;
-    root = insert(this->root, p);
+    this->root = insert(this->root, p);
+    fixStructure(this->root, p);
     return;
 }
 
@@ -51,18 +57,34 @@ Node* insert(Node *root, Node *p) {
 
 int User::find_user(string name) {
     int index;
-    // stub
+    Node *r = this->root;
+    index = find_userHelper(name, r);
     return index;
+}
+
+int find_userHelper(string name, Node* root) {
+    if(!root) {
+        return -1;
+    }
+    else if(root->name == name) {
+        return root->graphIndex;
+    }
+    else if(name < root->name) {
+        return find_userHelper(name, root->left);
+    }
+    else if(name > root->name) {
+        return find_userHelper(name, root->right);
+    }
 }
 
 vector<string> User::range_search(string name1, string name2) {
     return "";
 }
 
-void Users::rotateLeft() {
+void Users::rotateLeft(Node *root, Node *p) {
     return;
 }
 
-void Users::rotateRight() {
+void Users::rotateRight(Node *root, Node *p) {
     return;
 }
