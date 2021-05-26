@@ -11,6 +11,13 @@
 #include <iostream>
 #include <string>
 
+struct Node {
+    std::string name;
+    int graphIndex;
+    int fileIndex;
+    Node *left, *right, *parent;
+};
+
 class Users
 {
     public:
@@ -19,21 +26,19 @@ class Users
 
     ~Users();
 
-    add_User(std::string name);
+    void add_User(std::string name);
+
+    std::string find_User(std::string name);
+
+    vector<string> range_search(std::string name1, std::string name2);
 
     private:
 
-    rotateRight();
-    rotateLeft();
-    // Not done in function definition
+    Node* root;
 
-    struct Node {
-        std::string name;
-        int graphIndex;
-        int fileIndex;
-        Node *left, *right, *parent;
-    }
-    // Possibly will need to be updated
+    void rotateRight();
+    void rotateLeft();
+    // Not done in function definition
 
 };
 
