@@ -33,6 +33,7 @@ class Users
     std::string find_user(std::string name);
 
     vector<std::string> range_search(std::string name1, std::string name2);
+    // i don't know if a vector of the names is the best might have to rethink this one
 
     private:
 
