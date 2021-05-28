@@ -27,6 +27,8 @@ void clearTree(Node *p) {
 }
 
 void Users::fixStructure(Node *root, Node *p) {
+    Node *parent_p = p->parent;
+    Node *grandparent_p = p->parent->parent;
     return;
 }
 
