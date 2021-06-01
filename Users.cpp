@@ -27,8 +27,49 @@ void clearTree(Node *p) {
 }
 
 void Users::fixStructure(Node *root, Node *p) {
-    Node *parent_p = p->parent;
-    Node *grandparent_p = p->parent->parent;
+    Node *parent_p = NULL;
+    Node *grandparent_p = NULL;
+    Node *uncle_p = NULL;
+    while( (p->color != 1) && (p != root) && (p->parent->color == 0) ){
+        parent_p = p->parent;
+        grandparent_p = parent_p->parent;
+        if( parent_p == grandparent_p->left ) {
+            uncle_p = grandparent_p->right;
+            if( (uncle_p != NULL) && (uncle_p->color == 0) {
+                grandparent_p->color = 0;
+                parent_p->color = 1;
+                uncle_p = 1;
+                p = grandparent_p;
+            }
+            // Fix the else block below
+            else {
+                if (p == parent_p->right) {
+                    // stub
+                }
+                else {
+                    // stub
+                }
+            }
+        }
+        else {
+            uncle_p = grandparent_p->left;
+            if( (uncle_p != NULL) && (uncle_p->color == 0) {
+                grandparent_p->color = 0;
+                parent_p->color = 1;
+                uncle_p->color = 1;
+                p = grandparent_p;
+            }
+            else {
+                if(p == parent_p->left) {
+                    // RR rotation
+                }
+                else {
+                    // RL rotation ?
+                }
+            }
+        }
+    }
+    root->color = 1;
     return;
 }
 
@@ -83,10 +124,18 @@ vector<string> User::range_search(string name1, string name2) {
     return "";
 }
 
-void Users::rotateLeft(Node *root, Node *p) {
+void Users::rotateLeft(Node *p) {
     return;
 }
 
-void Users::rotateRight(Node *root, Node *p) {
+void Users::rotateRight(Node *p) {
+    return;
+}
+
+void Users::rotateRightLeft(Node *p) {
+    return;
+}
+
+void Users::rotateLeftRight(Node *p) {
     return;
 }

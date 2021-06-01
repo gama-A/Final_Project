@@ -39,8 +39,10 @@ class Users
 
     Node* root;
 
-    void rotateRight(Node* root, Node* p);
-    void rotateLeft(Node* root, Node* p);
+    void rotateRight(Node* p);
+    void rotateLeft(Node* p);
+    void rotateRightLeft(Node *p);
+    void rotateLeftRight(Node *p);
     
     void fixStructure(Node* root, Node* p);
     
