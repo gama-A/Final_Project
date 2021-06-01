@@ -105,6 +105,29 @@ Node* insert(Node *root, Node *p) {
     return root;
 }
 
+void Users::range_search(vector<Node*> v, string name1, string name2) {
+    Node *p = this->root;
+    range_search_Helper(p, v, name1, name2);
+}
+
+void range_search_Helper(Node *p, vector<Node*> v, string name1, string name2) {
+    if(!p) {
+        return;
+    }
+    if( p->name < name1 ) {
+        range_search_Helper(p->right,v,name1,name2);
+    }
+    if( (name1 <= p->name) && (p->name <= name2) ) {
+        v.push_back(p);
+        range_search_Helper(p->left,v,name1,name2);
+        range_search_Helper(p->right,v,name1,name2);
+    }
+    if( p->name > name2 ) {
+        range_search_Helper(p->left,v,name1,name2);
+    }
+}
+// Might have to double check this ^
+
 int User::find_user(string name) {
     int index;
     Node *r = this->root;
