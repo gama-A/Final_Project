@@ -30,7 +30,7 @@ void Users::fixStructure(Node *root, Node *p) {
     Node *parent_p = NULL;
     Node *grandparent_p = NULL;
     Node *uncle_p = NULL;
-    while( (p->color != 1) && (p != root) && (p->parent->color == 0) ){
+    while( p->parent->color == 0 ){
         parent_p = p->parent;
         grandparent_p = parent_p->parent;
         if( parent_p == grandparent_p->left ) {
@@ -41,14 +41,14 @@ void Users::fixStructure(Node *root, Node *p) {
                 uncle_p = 1;
                 p = grandparent_p;
             }
-            // Fix the else block below
             else {
                 if (p == parent_p->right) {
-                    // stub
+                    p = p->parent;
+                    rotateLeft(p);
                 }
-                else {
-                    // stub
-                }
+                parent_p->color = 1;
+                grandparent_p->color = 0;
+                rotateRight(grandparent_p);
             }
         }
         else {
@@ -61,26 +61,33 @@ void Users::fixStructure(Node *root, Node *p) {
             }
             else {
                 if(p == parent_p->left) {
-                    // RR rotation
+                    p = p->parent;
+                    rotateRight(p);
                 }
-                else {
-                    // RL rotation ?
-                }
+                parent_p->color = 1;
+                grandparent_p->color = 0;
+                rotateLeft(grandparent_p);
             }
         }
     }
     root->color = 1;
-    return;
 }
 
 void Users::add_user(string name, int g_index) {
     Node *p = new Node;
     p->name = name;
     p->graphIndex = g_index;
+    p->parent = NULL;
     p->color = 0;
     this->root = insert(this->root, p);
+    if(p->parent == NULL) {
+        p->color = 1;
+        return;
+    }
+    if(p->parent->parent == NULL) {
+        return;
+    }
     fixStructure(this->root, p);
-    return;
 }
 
 Node* insert(Node *root, Node *p) {
@@ -120,22 +127,38 @@ int find_userHelper(string name, Node* root) {
     }
 }
 
-vector<string> User::range_search(string name1, string name2) {
-    return "";
-}
-
 void Users::rotateLeft(Node *p) {
-    return;
+    Node *q = p->right;
+    p->right = q->left;
+    if(q->left != NULL) {
+        q->left->parent = p;
+    }
+    q->parent = p->parent;
+    if(p->parent == NULL) {
+        this->root = q;
+    }else if(p == p->parent->left) {
+        p->parent->left = q;
+    }else {
+        p->parent->right = q;
+    }
+    q->left = p;
+    p->parent = q;
 }
 
 void Users::rotateRight(Node *p) {
-    return;
-}
-
-void Users::rotateRightLeft(Node *p) {
-    return;
-}
-
-void Users::rotateLeftRight(Node *p) {
-    return;
+    Node *q = p->left;
+    p->left = q->right;
+    if(q->right != NULL) {
+        q->right->parent = p;
+    }
+    q->parent = p->parent;
+    if(p->parent == NULL) {
+        this->root = q;
+    }else if(p == p->parent->right) {
+        p->parent->right = q;
+    }else {
+        p->parent->left = q;
+    }
+    q->right = p;
+    p->parent = q;
 }
