@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -20,7 +21,14 @@ void welcomePrompt() {
 }
 
 int main(int argc, char** argv) {
-    string file(argv[0]);
+    string file(argv[1]);
+    ifstream infile;
+    infile.open(in);
+    string line;
+    while(getline(infile,line)) {
+        //stub
+    }
+    infile.close();
     bool status = true;
     int input;
     while(status) {
