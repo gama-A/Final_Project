@@ -73,10 +73,9 @@ void Users::fixStructure(Node *root, Node *p) {
     root->color = 1;
 }
 
-void Users::add_user(string name, int g_index) {
+void Users::add_user(string name) {
     Node *p = new Node;
     p->name = name;
-    p->graphIndex = g_index;
     p->parent = NULL;
     p->color = 0;
     this->root = insert(this->root, p);
@@ -127,28 +126,6 @@ void range_search_Helper(Node *p, vector<Node*> v, string name1, string name2) {
     }
 }
 // Might have to double check this ^
-
-int User::find_user(string name) {
-    int index;
-    Node *r = this->root;
-    index = find_userHelper(name, r);
-    return index;
-}
-
-int find_userHelper(string name, Node* root) {
-    if(!root) {
-        return -1;
-    }
-    else if(root->name == name) {
-        return root->graphIndex;
-    }
-    else if(name < root->name) {
-        return find_userHelper(name, root->left);
-    }
-    else if(name > root->name) {
-        return find_userHelper(name, root->right);
-    }
-}
 
 void Users::rotateLeft(Node *p) {
     Node *q = p->right;
