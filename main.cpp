@@ -5,6 +5,11 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <sstream>
+#include <vector>
+
+#include "Users.h"
+#include "Friendships.h"
 
 using namespace std;
 
@@ -23,10 +28,16 @@ void welcomePrompt() {
 int main(int argc, char** argv) {
     string file(argv[1]);
     ifstream infile;
-    infile.open(in);
-    string line;
+    infile.open(file);
+    string line, sub;
+    vector<string> inputs;
+    ofstream profiles("Profile_Data.csv");
     while(getline(infile,line)) {
-        //stub
+        string_stream ss(line);
+        while(ss.good()) {
+            getline(ss, sub, ',');
+            inputs.push_back(sub);
+        }
     }
     infile.close();
     bool status = true;
@@ -37,12 +48,35 @@ int main(int argc, char** argv) {
         if(input == 1) {
             // stub
         }else if(input == 2) {
+            string name, occupation, friends;
+            int age;
+            cout << "Enter the name: ";
+            cin >> name;
+            cout << "Enter age: ";
+            cin >> age;
+            cout << "Enter occupation: ";
+            cin >> occupation;
+            cout << "Enter friends (all at once,comma separated): ";
+            cin >> friends;
             // stub
         }else if(input == 3) {
-            // stub
+            string friend1, friend2;
+            cout << "Enter the 1st name: ";
+            cin >> friend1;
+            cout << "Enter the 2nd name: ";
+            cin >> friend2;
+            //stub
         }else if(input == 4) {
+            string name;
+            cout << "Enter the name: ";
+            cin >> name;
             // stub
         }else if(input == 5) {
+            string lower, upper;
+            cout << "Enter lower bound name: ";
+            cin >> lower;
+            cout << "Enter upper bound name: ";
+            cin >> upper;
             // stub
         }else if(input == 6) {
             status == false;
