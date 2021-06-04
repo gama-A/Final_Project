@@ -31,6 +31,8 @@ int main(int argc, char** argv) {
     infile.open(file);
     string line, sub;
     vector<string> inputs;
+    string name, occupation;
+    int age;
     ofstream profiles("Profile_Data.csv");
     while(getline(infile,line)) {
         string_stream ss(line);
@@ -38,7 +40,10 @@ int main(int argc, char** argv) {
             getline(ss, sub, ',');
             inputs.push_back(sub);
         }
-        // stub
+        name = inputs[0];
+        age = stoi(inputs[1]);
+        occupation = inputs[2];
+        // stub write to file and add to data structures
     }
     infile.close();
     bool status = true;
