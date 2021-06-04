@@ -13,7 +13,7 @@
 
 struct Node {
     std::string name;
-    int fileIndex;
+    int fileIndex;    // integer indicating the offset of the information
     Node *left, *right, *parent;
     bool color;
     // for color: true/1 = black, false/0 = red
@@ -31,6 +31,9 @@ class Users
 
     void range_search(vector<Node*> v, std::string name1, std::string name2);
     // i don't know if a vector of the names is the best might have to rethink this one
+
+    int find_user(std::string name);
+    // returns file index
 
     private:
 
