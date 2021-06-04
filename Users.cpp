@@ -104,12 +104,12 @@ Node* insert(Node *root, Node *p) {
     return root;
 }
 
-void Users::range_search(vector<Node*> v, string name1, string name2) {
+void Users::range_search(vector<string> v, string name1, string name2) {
     Node *p = this->root;
     range_search_Helper(p, v, name1, name2);
 }
 
-void range_search_Helper(Node *p, vector<Node*> v, string name1, string name2) {
+void range_search_Helper(Node *p, vector<string> v, string name1, string name2) {
     if(!p) {
         return;
     }
@@ -117,7 +117,7 @@ void range_search_Helper(Node *p, vector<Node*> v, string name1, string name2) {
         range_search_Helper(p->right,v,name1,name2);
     }
     if( (name1 <= p->name) && (p->name <= name2) ) {
-        v.push_back(p);
+        v.push_back(p->name);
         range_search_Helper(p->left,v,name1,name2);
         range_search_Helper(p->right,v,name1,name2);
     }
@@ -125,7 +125,27 @@ void range_search_Helper(Node *p, vector<Node*> v, string name1, string name2) {
         range_search_Helper(p->left,v,name1,name2);
     }
 }
-// Might have to double check this ^
+
+int Users::find_user(string name) {
+    int index;
+    Node *p = this->root;
+    while(p) {
+        if(p->name == name) {
+            index = p->fileIndex;
+            break;
+        }
+        else if(p->name < name) {
+            p = p->left;
+        }
+        else if(p->name > name) {
+            p = p->right;
+        }
+    }
+    if(!p) {
+        index = -1;
+    }
+    return index;
+}
 
 void Users::rotateLeft(Node *p) {
     Node *q = p->right;

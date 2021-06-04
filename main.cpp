@@ -38,6 +38,7 @@ int main(int argc, char** argv) {
             getline(ss, sub, ',');
             inputs.push_back(sub);
         }
+        // stub
     }
     infile.close();
     bool status = true;
@@ -73,10 +74,12 @@ int main(int argc, char** argv) {
             // stub
         }else if(input == 5) {
             string lower, upper;
+            vector<string> names;
             cout << "Enter lower bound name: ";
             cin >> lower;
             cout << "Enter upper bound name: ";
             cin >> upper;
+            Users.range_search(names, lower, upper);
             // stub
         }else if(input == 6) {
             status == false;
