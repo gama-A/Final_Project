@@ -73,11 +73,12 @@ void Users::fixStructure(Node *root, Node *p) {
     root->color = 1;
 }
 
-void Users::add_user(string name) {
+void Users::add_user(string name, int f_index) {
     Node *p = new Node;
     p->name = name;
     p->parent = NULL;
     p->color = 0;
+    p->fileIndex = f_index;
     this->root = insert(this->root, p);
     if(p->parent == NULL) {
         p->color = 1;

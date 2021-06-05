@@ -27,9 +27,9 @@ class Users
 
     ~Users();
 
-    void add_user(std::string name);
+    void add_user(std::string name, int f_index);
 
-    void range_search(vector<Node*> v, std::string name1, std::string name2);
+    void range_search(vector<std::string> v, std::string name1, std::string name2);
     // i don't know if a vector of the names is the best might have to rethink this one
 
     int find_user(std::string name);

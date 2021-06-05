@@ -7,6 +7,7 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <iomanip>
 
 #include "Users.h"
 #include "Friendships.h"
@@ -18,32 +19,45 @@ void welcomePrompt() {
                     "1) Print all\n"
                     "2) Insert new user\n"
                     "3) Add friendship relationship\n"
-                    "4) List information of all friends of one user\n"
-                    "5) List information of range of users\n"
-                    "6) Exit\n"
+                    "4) Information of a user\n"
+                    "5) List information of all friends of one user\n"
+                    "6) List information of range of users\n"
+                    "7) Exit\n"
                     "Input number: \n";
     cout << output;
 }
 
 int main(int argc, char** argv) {
+    Users rbt;
     string file(argv[1]);
     ifstream infile;
     infile.open(file);
     string line, sub;
     vector<string> inputs;
     string name, occupation;
-    int age;
-    ofstream profiles("Profile_Data.csv");
+    int age, counter;
+    fstream profiles;
+    profiles.open("Profile_Data.csv");
     while(getline(infile,line)) {
+        line = line.erase(remove(line.begin(),line.end(),'"'),line.end());
         string_stream ss(line);
         while(ss.good()) {
             getline(ss, sub, ',');
             inputs.push_back(sub);
         }
         name = inputs[0];
-        age = stoi(inputs[1]);
+        age = inputs[1];
         occupation = inputs[2];
-        // stub write to file and add to data structures
+        rbt.add_user(name, counter);
+        // stub add user and friends
+        stringstream n;
+        n << setw(20) << name;
+        stringstream a;
+        a << setw(3) << age;
+        stringstream o;
+        o << setw(30) << occupation;
+        profiles << n.str() << a.str() << o.str();
+        counter += 53;
     }
     infile.close();
     bool status = true;
@@ -76,8 +90,14 @@ int main(int argc, char** argv) {
             string name;
             cout << "Enter the name: ";
             cin >> name;
+            int f_index = rbt.find_user(name);
             // stub
         }else if(input == 5) {
+            string name;
+            cout << "Enter the name: ";
+            cin >> name
+            // stub 
+        }else if(input == 6) {
             string lower, upper;
             vector<string> names;
             cout << "Enter lower bound name: ";
@@ -86,7 +106,7 @@ int main(int argc, char** argv) {
             cin >> upper;
             Users.range_search(names, lower, upper);
             // stub
-        }else if(input == 6) {
+        }else if(input == 7) {
             status == false;
         }else {
             cout << "INVALID INPUT";
