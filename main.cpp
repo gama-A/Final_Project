@@ -8,6 +8,7 @@
 #include <sstream>
 #include <vector>
 #include <iomanip>
+#include <algorithm>
 
 #include "Users.h"
 #include "Friendships.h"
@@ -34,13 +35,13 @@ int main(int argc, char** argv) {
     infile.open(file);
     string line, sub;
     vector<string> inputs;
-    string name, occupation;
-    int age, counter;
+    string name, age, occupation;
+    int counter = 0;
     fstream profiles;
     profiles.open("Profile_Data.csv");
     while(getline(infile,line)) {
-        line = line.erase(remove(line.begin(),line.end(),'"'),line.end());
-        string_stream ss(line);
+        line.erase(remove(line.begin(),line.end(),'"'),line.end());
+        stringstream ss(line);
         while(ss.good()) {
             getline(ss, sub, ',');
             inputs.push_back(sub);
@@ -48,8 +49,9 @@ int main(int argc, char** argv) {
         name = inputs[0];
         age = inputs[1];
         occupation = inputs[2];
+        inputs.erase(inputs.begin(), inputs.begin()+2);
         rbt.add_user(name, counter);
-        // stub add user and friends
+        // stub add user and friends Sahil this is where your stuff goes
         stringstream n;
         n << setw(20) << name;
         stringstream a;
@@ -66,10 +68,11 @@ int main(int argc, char** argv) {
         welcomePrompt();
         cin >> input;
         if(input == 1) {
-            // stub
+            vector<string> v;
+            rbt.user_names(v);
+            // stub Sahil (go through the names of the vector, print whats in the file, then the friends)
         }else if(input == 2) {
-            string name, occupation, friends;
-            int age;
+            string name, occupation, friends, age;
             cout << "Enter the name: ";
             cin >> name;
             cout << "Enter age: ";
@@ -78,14 +81,23 @@ int main(int argc, char** argv) {
             cin >> occupation;
             cout << "Enter friends (all at once,comma separated): ";
             cin >> friends;
-            // stub
+            stringstream N;
+            N << setw(20) << name;
+            stringstream A;
+            A << setw(3) << age;
+            stringstream O;
+            O << setw(30) << occupation;
+            profiles << N.str() << A.str() << O.str();
+            rbt.add_user(name, counter);
+            counter += 53;
+            // stub Sahil (use the string friends and name to create the friendships)
         }else if(input == 3) {
             string friend1, friend2;
             cout << "Enter the 1st name: ";
             cin >> friend1;
             cout << "Enter the 2nd name: ";
             cin >> friend2;
-            //stub
+            //stub Sahil (pretty straight forward)
         }else if(input == 4) {
             string name;
             cout << "Enter the name: ";
@@ -95,8 +107,8 @@ int main(int argc, char** argv) {
         }else if(input == 5) {
             string name;
             cout << "Enter the name: ";
-            cin >> name
-            // stub 
+            cin >> name;
+            // stub Sahil (obtain the names of the friends and their file index) 
         }else if(input == 6) {
             string lower, upper;
             vector<string> names;
@@ -104,7 +116,7 @@ int main(int argc, char** argv) {
             cin >> lower;
             cout << "Enter upper bound name: ";
             cin >> upper;
-            Users.range_search(names, lower, upper);
+            rbt.range_search(names, lower, upper);
             // stub
         }else if(input == 7) {
             status == false;

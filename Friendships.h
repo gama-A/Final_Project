@@ -9,7 +9,6 @@
 #define FRIENDSHIPS_H
 
 #include <iostream>
-#include "Users.h"
 #include <string>
 #include <vector>
 #include <unordered_set>
@@ -18,7 +17,7 @@ struct LLNode {
     std::string name;
     //std::string occupation;
     //int age;
-}
+};
 struct Node_Graph {
     std::string name;
     int fileIndex;

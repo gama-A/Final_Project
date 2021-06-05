@@ -17,7 +17,7 @@ Users::~Users() {
     clearTree(this->root);
 }
 
-void clearTree(Node *p) {
+void Users::clearTree(Node *p) {
     if(!p) {
         return;
     }
@@ -35,10 +35,10 @@ void Users::fixStructure(Node *root, Node *p) {
         grandparent_p = parent_p->parent;
         if( parent_p == grandparent_p->left ) {
             uncle_p = grandparent_p->right;
-            if( (uncle_p != NULL) && (uncle_p->color == 0) {
+            if( (uncle_p != NULL) && (uncle_p->color == 0) ){
                 grandparent_p->color = 0;
                 parent_p->color = 1;
-                uncle_p = 1;
+                uncle_p->color = 1;
                 p = grandparent_p;
             }
             else {
@@ -53,7 +53,7 @@ void Users::fixStructure(Node *root, Node *p) {
         }
         else {
             uncle_p = grandparent_p->left;
-            if( (uncle_p != NULL) && (uncle_p->color == 0) {
+            if( (uncle_p != NULL) && (uncle_p->color == 0) ){
                 grandparent_p->color = 0;
                 parent_p->color = 1;
                 uncle_p->color = 1;
@@ -90,15 +90,15 @@ void Users::add_user(string name, int f_index) {
     fixStructure(this->root, p);
 }
 
-Node* insert(Node *root, Node *p) {
+Node* Users::insert(Node *root, Node *p) {
     if(this->root == NULL) {
         this->root = p;
     }
-    else if(insert->name < root->name) {
+    else if(p->name < root->name) {
         root->left = insert(root->left, p);
         root->left->parent = root;
     }
-    else if(insert->name > root->name) {
+    else if(p->name > root->name) {
         root->right = insert(root->right, p);
         root->right->parent = root;
     }
@@ -110,7 +110,7 @@ void Users::range_search(vector<string> v, string name1, string name2) {
     range_search_Helper(p, v, name1, name2);
 }
 
-void range_search_Helper(Node *p, vector<string> v, string name1, string name2) {
+void Users::range_search_Helper(Node *p, vector<string> v, string name1, string name2) {
     if(!p) {
         return;
     }
