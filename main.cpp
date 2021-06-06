@@ -36,8 +36,7 @@ int main(int argc, char** argv) {
     infile.open(file);
     string line, sub;
     string name, age, occupation;
-    int counter = 0;
-    int fileLine = 1;
+    int fileIndex = 0;
     fstream profiles;
     profiles.open("Profile_Data.csv");
     while(getline(infile,line)) {
@@ -46,45 +45,54 @@ int main(int argc, char** argv) {
         stringstream ss(line);
         while(ss.good()) {
             getline(ss, sub, ',');
-            inputs.push_back(sub); //isnt all of them pushed into same vector? since vector<inputs> defined outside teh while loop
+            inputs.push_back(sub);
         }
-        name = inputs[0]; // so these might not work ? double checking
+        name = inputs[0];
         age = inputs[1];
         occupation = inputs[2];
         inputs.erase(inputs.begin(), inputs.begin()+2);
-        rbt.add_user(name, counter);
-        // assuming inputs 3-> inputs.size() is the rest of friends
-        vector<string> friends;
-        //for (int i = 0; i < inputs.size(); i++) {
-        //    friends.push_back(inputs[i]);
-        //}
-        adJL.insert(name, inputs, fileLine);
-        // stub add user and friends Sahil this is where your stuff goes
+        rbt.add_user(name, fileIndex);
+        adjL.insert(name, inputs, fileIndex);
         stringstream n;
         n << setw(20) << name;
         stringstream a;
-        a << setw(3) << age;
+        a << setw(2) << age;
         stringstream o;
         o << setw(30) << occupation;
         profiles << n.str() << a.str() << o.str();
-        counter += 53;
-        fileLine++;
+        fileIndex++;
     }
     infile.close();
+    profiles.close();
     bool status = true;
     int input;
     while(status) {
         welcomePrompt();
         cin >> input;
         if(input == 1) {
-            vector<string> v;
-            rbt.user_names(v);
-
-            // stub Sahil (go through the names of the vector, print whats in the file, then the friends)
-            // stub (given name, print friends)
-            adjL.printAllFriends(stub name);
+            vector<string> n;         // work on this Gama
+            vector<int> f;
+            rbt.users_Index(n,f);
+            for(auto j : f) {
+                string info = "";
+                string name, age, occupation;
+                profiles.open("Profile_Data.csv", fstream::in);
+                profiles.seekg(52*j, ios::beg);
+                char buffer[52];
+                profiles.read(buffer,52);
+                for(int i = 0; i < 52; i++) {
+                    info = info + buffer[i];
+                }
+                name = info.substr(0,20);
+                age = info.substr(20,2);
+                occupation = info.substr(22,30);
+                cout << name << "," << age << "," << occupation << ",";
+            }
+            for(auto i : n) {              // this won't work
+                adjL.printAllFriends(i);
+            }
         }else if(input == 2) {
-            string name, occupation, friends, age;
+            string name, occupation, friends, age, friendName;
             cout << "Enter the name: ";
             cin >> name;
             cout << "Enter age: ";
@@ -93,20 +101,24 @@ int main(int argc, char** argv) {
             cin >> occupation;
             cout << "Enter friends (all at once,comma separated): ";
             cin >> friends;
+            profiles.open("Profile_Data.csv",ios_base::app);
             stringstream N;
             N << setw(20) << name;
             stringstream A;
-            A << setw(3) << age;
+            A << setw(2) << age;
             stringstream O;
             O << setw(30) << occupation;
             profiles << N.str() << A.str() << O.str();
-            rbt.add_user(name, counter);
-            fileLine++;
-            counter += 53;
+            profiles.close();
+            rbt.add_user(name, fileIndex);
             vector<string> f;
-            //f.push_back(names) stub
-            adjL.insert(name, f, fileLine);
-            // stub Sahil (use the string friends and name to create the friendships)
+            stringstream F(friends);
+            while(F.good()) {
+                getline(F,friendName,'"');
+                f.push_back(friendName);
+            }
+            adjL.insert(name, f, fileIndex);
+            fileIndex++;
         }else if(input == 3) {
             string friend1, friend2;
             cout << "Enter the 1st name: ";
@@ -115,18 +127,45 @@ int main(int argc, char** argv) {
             cin >> friend2;
             adjL.addFriendship(friend1, friend2);
         }else if(input == 4) {
-            string name;
+            string name, info;
+            info = "";
             cout << "Enter the name: ";
             cin >> name;
             int f_index = rbt.find_user(name);
-            // stub
+            profiles.open("Profile_Data.csv", fstream::in);
+            profiles.seekg(52*f_index, ios::beg);
+            char buffer[52];
+            profiles.read(buffer,52);
+            profiles.close();
+            for(int i = 0; i < 52; i++) {
+                info = info + buffer[i];
+            }
+            name = info.substr(0,20);
+            age = info.substr(20,2);
+            occupation = info.substr(22,30);
+            cout << name << "," << age << "," << occupation << endl;
         }else if(input == 5) {
-            string name;
+            string name, age, occupation;
             vector<int> fileIndices;
             cout << "Enter the name: ";
             cin >> name;
-            fileIndices = adjL.printFriends(name); // a vector of indices of friends
-            // stub Sahil (obtain the names of the friends and their file index) 
+            cout << "Friends of " << name << ":\n";
+            profiles.open("Profile_Data.csv", fstream::in);
+            fileIndices = adjL.printFriends(name);
+            for(auto i : fileIndices) {
+                string info = "";
+                profiles.seekg(52*i, ios::beg);
+                char buffer[52];
+                profiles.read(buffer,52);
+                for(i = 0; i < 52; i++) {
+                    info = info + buffer[i];
+                }
+                name = info.substr(0,20);
+                age = info.substr(20,2);
+                occupation = info.substr(22,30);
+                cout << name << "," << "," << occupation << endl;
+            }
+            profiles.close();
         }else if(input == 6) {
             string lower, upper;
             vector<string> names; // vector of names in the range
