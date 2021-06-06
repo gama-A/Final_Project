@@ -88,9 +88,9 @@ int main(int argc, char** argv) {
                 occupation = info.substr(22,30);
                 cout << name << "," << age << "," << occupation << ",";
             }
-            for(auto i : n) {              // this won't work
-                adjL.printAllFriends(i);
-            }
+            //for(auto i : n) {              // this won't work
+            //    adjL.printFriends(i);
+            //}
         }else if(input == 2) {
             string name, occupation, friends, age, friendName;
             cout << "Enter the name: ";
@@ -151,7 +151,7 @@ int main(int argc, char** argv) {
             cin >> name;
             cout << "Friends of " << name << ":\n";
             profiles.open("Profile_Data.csv", fstream::in);
-            fileIndices = adjL.printFriends(name);
+            fileIndices = adjL.infoAllFriends(name);
             for(auto i : fileIndices) {
                 string info = "";
                 profiles.seekg(52*i, ios::beg);

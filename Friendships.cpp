@@ -9,9 +9,9 @@ void Friendships::insert(string name, vector<string> friendsList, int fileLine) 
     Node_Graph *n = new Node_Graph();
     n->name = name;
     n->fileIndex = fileLine;
-    LLNode L;
+    string L;
     for (int i =0 ; i < friendsList.size(); i++) {
-        L.name = friendsList[i];
+        L = friendsList[i];
         n->friends.push_back(L);
     }
     people[name] = n;
@@ -23,7 +23,7 @@ void Friendships::addFriendship(string friend1, string friend2){
     people[friend2]->friends.push_back(friend1);
 }
 
-void printFriends(string name){
+void Friendships::printFriends(string name){
     for (int i = 0; i < people[name]->friends.size(); i++) {
         cout << people[name]->friends[i] << ",";
     }
@@ -42,11 +42,11 @@ void Friendships::updatePostRBT(string name, Users &u)){
     //}
 }
 */
-vector<int> Friendships::infoAllFriends(string name) {
-    vector<LLNode> temp = people[name].friends;
+vector<int> Friendships::infoAllFriends(string name) { // indice in the profile data
+    vector<string> temp = people[name]->friends;
     vector<int> friendsPDLine;
     for (int i =0 ; i < temp.size(); i++) {
-        friendsPDLine.push_back(people[temp[i]]->fileindex;)
+        friendsPDLine.push_back(people[temp[i]]->fileIndex);
         //cout << "Name: " temp[i] << endl; //temp[i] is a name of a friend
         // Mike's friends:
         // Jacob, age, occupation
@@ -57,5 +57,5 @@ vector<int> Friendships::infoAllFriends(string name) {
         //cout << ProfileData[temp[i]].age << endl;
 
     }
-    return freindsPDLine;
+    return friendsPDLine;
 }

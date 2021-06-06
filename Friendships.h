@@ -11,23 +11,24 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <unordered_set>
+#include <unordered_map>
 
+/*
 struct LLNode {
     std::string name;
     //std::string occupation;
     //int age;
 };
-
+*/
 // gives us the option of having all the frineddsd info in the LLNode, might be better than having to search later but idk 
 // if not might be better to just change LLnode to just a string so a vetor of strings
 struct Node_Graph {
     std::string name;
     int fileIndex;
-    std::vector<LLNode> friends; // vector of friends
+    std::vector<std::string> friends; // vector of friends
     //Node_Graph *left; // left pointer in rbt ?
     //Node_Graph *right; // right pointer in rbt ?
-    Node_Graph() : name(""), fileIndex(0), left(NULL), right(NULL)  {}
+    Node_Graph() : name(""), fileIndex(0)  {}
 };
 
 // while taking in the inputs from the csv file, we create teh NodeGraph with name, friends.
@@ -40,15 +41,15 @@ class Friendships
 {
     public:
         Friendships();
-        void insert(std::string name, std::vector<std::string> friendsList); // figure out a way to grab all the friends 
+        void insert(std::string name, std::vector<std::string> friendsList, int fileLine); // figure out a way to grab all the friends 
         // friendsList needs to be created in main once we grab all the friends of the person from the csv file.
         void addFriendship(std::string friend1, std::string friend2);
         //void updatePostRBT(std::string name); // use
-        void infoAllFriends(std::string name);
-        vector<int> printFriends(std::string name);
+        std::vector<int> infoAllFriends(std::string name);
+        void printFriends(std::string name);
     private:
         
-        unordered_set<Node_Graph*> people;
+        std::unordered_map<std::string, Node_Graph*> people;
 
 };
 
