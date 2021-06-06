@@ -87,10 +87,9 @@ int main(int argc, char** argv) {
                 age = info.substr(20,2);
                 occupation = info.substr(22,30);
                 cout << name << "," << age << "," << occupation << ",";
+                adjL.printFriends(name); // comma separated list of all the friends, ends with an << endl;
             }
-            //for(auto i : n) {              // this won't work
-            //    adjL.printFriends(i);
-            //}
+   
         }else if(input == 2) {
             string name, occupation, friends, age, friendName;
             cout << "Enter the name: ";
