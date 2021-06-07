@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
     infile.open(file);
     string line, sub;
     string name, age, occupation;
-    int fileIndex = 0;
+    int fileIndex = 1;
     fstream profiles;
     profiles.open("Profile_Data.txt", fstream::out | fstream::app);
     profiles.close();
@@ -56,13 +56,7 @@ int main(int argc, char** argv) {
         inputs.pop_back();
         rbt.add_user(name, fileIndex);
         adjL.insert(name, inputs, fileIndex);
-        stringstream n;
-        n << std::left << setw(20) << name;
-        stringstream a;
-        a << std::left << setw(2) << age;
-        stringstream o;
-        o << std::left << setw(30) << occupation;
-        profiles << n.str() << a.str() << o.str();
+        profiles << name << "," << age << "," << occupation << endl;
         fileIndex++;
     }
     infile.close();
@@ -76,19 +70,15 @@ int main(int argc, char** argv) {
             names = rbt.users_names();
             for(auto i : names) {
                 int f_index = rbt.find_user(i);
-                string info = "";
-                string name, age, occupation;
-                profiles.seekg(52*f_index, ios::beg);
-                char buffer[52];
-                profiles.read(buffer,52);
-                for(int i = 0; i < 52; i++) {
-                    info = info + buffer[i];
+                string info;
+                int lineNo = 1;
+                while(lineNo != f_index && getline(profiles,info)) {
+                    lineNo++;
                 }
-                name = info.substr(0,20);
-                age = info.substr(20,2);
-                occupation = info.substr(22,30);
-                cout << name << "," << age << "," << occupation << ",";
+                cout << info << ",";
                 adjL.printFriends(i);
+                profiles.clear();
+                profiles.seekg(0);
             }
         }else if(input == 2) {
             string name, occupation, friends, age, friendName;
@@ -100,13 +90,7 @@ int main(int argc, char** argv) {
             cin >> occupation;
             cout << "Enter friends (all at once,comma separated): ";
             cin >> friends;
-            stringstream N;
-            N << setw(20) << name;
-            stringstream A;
-            A << setw(2) << age;
-            stringstream O;
-            O << setw(30) << occupation;
-            profiles << N.str() << A.str() << O.str();
+            profiles << name << "," << age << "," << occupation << endl;
             rbt.add_user(name, fileIndex);
             vector<string> f;
             stringstream F(friends);
@@ -125,42 +109,33 @@ int main(int argc, char** argv) {
             adjL.addFriendship(friend1, friend2);
         }else if(input == 4) {
             string name, info;
-            info = "";
             cout << "Enter the name: ";
             cin >> name;
             int f_index = rbt.find_user(name);
-            profiles.seekg(52*f_index, ios::beg);
-            char buffer[52];
-            profiles.read(buffer,52);
-            for(int i = 0; i < 52; i++) {
-                info = info + buffer[i];
+            int lineNo = 1;
+            while(lineNo != f_index && getline(profiles, info)) {
+                lineNo++;
             }
-            name = info.substr(0,20);
-            age = info.substr(20,2);
-            occupation = info.substr(22,30);
-            cout << name << "," << age << "," << occupation << endl;
+            cout << info << endl;
+            profiles.seekg(0);
         }else if(input == 5) {
-            string name, age, occupation;
+            string name;
             vector<int> fileIndices;
             cout << "Enter the name: ";
             cin >> name;
             cout << "Friends of " << name << ":\n";
             fileIndices = adjL.infoAllFriends(name);
             for(auto i : fileIndices) {
-                string info = "";
-                profiles.seekg(52*i, ios::beg);
-                char buffer[52];
-                profiles.read(buffer,52);
-                for(i = 0; i < 52; i++) {
-                    info = info + buffer[i];
+                string info;
+                int lineNo = 1;
+                while(lineNo != i && getline(profiles, info)) {
+                    lineNo++;
                 }
-                name = info.substr(0,20);
-                age = info.substr(20,2);
-                occupation = info.substr(22,30);
-                cout << name << "," << age << "," << occupation << endl;
+                cout << info << endl;
             }
+            profiles.seekg(0);
         }else if(input == 6) {
-            string lower, upper, name, age, occupation;
+            string lower, upper, name;
             vector<int> nameIndices;
             cout << "Enter lower bound name: ";
             cin >> lower;
@@ -168,18 +143,14 @@ int main(int argc, char** argv) {
             cin >> upper;
             rbt.range_search(nameIndices, lower, upper);
             for(auto i : nameIndices) {
-                string info = "";
-                profiles.seekg(52*i, ios::beg);
-                char buffer[52];
-                profiles.read(buffer,52);
-                for(i = 0; i < 52; i++) {
-                    info = info + buffer[i];
+                string info;
+                int lineNo = 1;
+                while(lineNo != i && getline(profiles, info)) {
+                    lineNo++;
                 }
-                name = info.substr(0,20);
-                age = info.substr(20,2);
-                occupation = info.substr(22,30);
-                cout << name << "," << age << "," << occupation << endl;
+                cout << info << endl;
             }
+            profiles.seekg(0);
         }else if(input == 7) {
             status = false;
         }else {
