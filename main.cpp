@@ -38,7 +38,9 @@ int main(int argc, char** argv) {
     string name, age, occupation;
     int fileIndex = 0;
     fstream profiles;
-    profiles.open("Profile_Data.csv");
+    profiles.open("Profile_Data.txt", fstream::out | fstream::app);
+    profiles.close();
+    profiles.open("Profile_Data.txt", fstream::in | fstream::out | fstream::app);
     while(getline(infile,line)) {
         vector<string> inputs;
         line.erase(remove(line.begin(),line.end(),'"'),line.end());
@@ -50,34 +52,33 @@ int main(int argc, char** argv) {
         name = inputs[0];
         age = inputs[1];
         occupation = inputs[2];
-        inputs.erase(inputs.begin(), inputs.begin()+2);
+        inputs.erase(inputs.begin(), inputs.begin()+3);
+        inputs.pop_back();
         rbt.add_user(name, fileIndex);
         adjL.insert(name, inputs, fileIndex);
         stringstream n;
-        n << setw(20) << name;
+        n << std::left << setw(20) << name;
         stringstream a;
-        a << setw(2) << age;
+        a << std::left << setw(2) << age;
         stringstream o;
-        o << setw(30) << occupation;
+        o << std::left << setw(30) << occupation;
         profiles << n.str() << a.str() << o.str();
         fileIndex++;
     }
     infile.close();
-    profiles.close();
     bool status = true;
     int input;
     while(status) {
         welcomePrompt();
         cin >> input;
         if(input == 1) {
-            vector<string> n;         // work on this Gama
-            vector<int> f;
-            rbt.users_Index(n,f);
-            for(auto j : f) {
+            vector<string> names;
+            rbt.users_names(names);
+            for(auto i : names) {
+                int f_index = rbt.find_user(i);
                 string info = "";
                 string name, age, occupation;
-                profiles.open("Profile_Data.csv", fstream::in);
-                profiles.seekg(52*j, ios::beg);
+                profiles.seekg(52*f_index, ios::beg);
                 char buffer[52];
                 profiles.read(buffer,52);
                 for(int i = 0; i < 52; i++) {
@@ -87,9 +88,8 @@ int main(int argc, char** argv) {
                 age = info.substr(20,2);
                 occupation = info.substr(22,30);
                 cout << name << "," << age << "," << occupation << ",";
-                adjL.printFriends(name); // comma separated list of all the friends, ends with an << endl;
+                adjL.printFriends(i);
             }
-   
         }else if(input == 2) {
             string name, occupation, friends, age, friendName;
             cout << "Enter the name: ";
@@ -100,7 +100,6 @@ int main(int argc, char** argv) {
             cin >> occupation;
             cout << "Enter friends (all at once,comma separated): ";
             cin >> friends;
-            profiles.open("Profile_Data.csv",ios_base::app);
             stringstream N;
             N << setw(20) << name;
             stringstream A;
@@ -108,7 +107,6 @@ int main(int argc, char** argv) {
             stringstream O;
             O << setw(30) << occupation;
             profiles << N.str() << A.str() << O.str();
-            profiles.close();
             rbt.add_user(name, fileIndex);
             vector<string> f;
             stringstream F(friends);
@@ -131,11 +129,9 @@ int main(int argc, char** argv) {
             cout << "Enter the name: ";
             cin >> name;
             int f_index = rbt.find_user(name);
-            profiles.open("Profile_Data.csv", fstream::in);
             profiles.seekg(52*f_index, ios::beg);
             char buffer[52];
             profiles.read(buffer,52);
-            profiles.close();
             for(int i = 0; i < 52; i++) {
                 info = info + buffer[i];
             }
@@ -149,7 +145,6 @@ int main(int argc, char** argv) {
             cout << "Enter the name: ";
             cin >> name;
             cout << "Friends of " << name << ":\n";
-            profiles.open("Profile_Data.csv", fstream::in);
             fileIndices = adjL.infoAllFriends(name);
             for(auto i : fileIndices) {
                 string info = "";
@@ -162,23 +157,35 @@ int main(int argc, char** argv) {
                 name = info.substr(0,20);
                 age = info.substr(20,2);
                 occupation = info.substr(22,30);
-                cout << name << "," << "," << occupation << endl;
+                cout << name << "," << age << "," << occupation << endl;
             }
-            profiles.close();
         }else if(input == 6) {
-            string lower, upper;
-            vector<string> names; // vector of names in the range
+            string lower, upper, name, age, occupation;
+            vector<int> nameIndices;
             cout << "Enter lower bound name: ";
             cin >> lower;
             cout << "Enter upper bound name: ";
             cin >> upper;
-            rbt.range_search(names, lower, upper); // change to range search to return indices of file (so we can find them infile)
-            // stub
+            rbt.range_search(nameIndices, lower, upper);
+            for(auto i : nameIndices) {
+                string info = "";
+                profiles.seekg(52*i, ios::beg);
+                char buffer[52];
+                profiles.read(buffer,52);
+                for(i = 0; i < 52; i++) {
+                    info = info + buffer[i];
+                }
+                name = info.substr(0,20);
+                age = info.substr(20,2);
+                occupation = info.substr(22,30);
+                cout << name << "," << age << "," << occupation << endl;
+            }
         }else if(input == 7) {
-            status == false;
+            status = false;
         }else {
             cout << "INVALID INPUT";
         }
     }
+    profiles.close();
     return 0;
 }

@@ -30,26 +30,31 @@ class Users
 
     void add_user(std::string name, int f_index);
 
-    void range_search(std::vector<std::string> v, std::string name1, std::string name2);
-    // i don't know if a vector of the names is the best might have to rethink this one
+    void range_search(std::vector<int> v, std::string name1, std::string name2);
+    // i don't know if 
 
     int find_user(std::string name);
     // returns file index
 
+    void users_names(std::vector<std::string> v);
+
     private:
 
     Node* root;
+    Node* TNULL;
 
     void clearTree(Node *p);
 
-    Node* insert(Node *root, Node *p);
+    // Node* insert(Node *root, Node *p);
 
     void rotateRight(Node* p);
     void rotateLeft(Node* p);
     
-    void fixStructure(Node* root, Node* p);
+    void fixStructure(Node* p);
 
-    void range_search_Helper(Node *p, std::vector<std::string> v, std::string name1, std::string name2);
+    void users_names_Helper(std::vector<std::string> v, Node *p);
+
+    void range_search_Helper(Node *p, std::vector<int> v, std::string name1, std::string name2);
     
 };
 
