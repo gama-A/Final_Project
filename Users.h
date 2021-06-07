@@ -36,14 +36,14 @@ class Users
     int find_user(std::string name);
     // returns file index
 
-    void users_names(std::vector<std::string> v);
+    std::vector<std::string> users_names();
 
     private:
 
     Node* root;
     Node* TNULL;
 
-    void clearTree(Node *p);
+    void destroy(Node *p);
 
     // Node* insert(Node *root, Node *p);
 
@@ -52,7 +52,7 @@ class Users
     
     void fixStructure(Node* p);
 
-    void users_names_Helper(std::vector<std::string> v, Node *p);
+    std::vector<std::string> users_names_Helper(std::vector<std::string> &v, Node *p);
 
     void range_search_Helper(Node *p, std::vector<int> v, std::string name1, std::string name2);
     

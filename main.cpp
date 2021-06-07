@@ -73,7 +73,7 @@ int main(int argc, char** argv) {
         cin >> input;
         if(input == 1) {
             vector<string> names;
-            rbt.users_names(names);
+            names = rbt.users_names();
             for(auto i : names) {
                 int f_index = rbt.find_user(i);
                 string info = "";

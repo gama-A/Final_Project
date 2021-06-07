@@ -18,16 +18,16 @@ Users::Users() {
 }
 
 Users::~Users() {
-    clearTree(this->root);
+    destroy(this->root);
+    delete this->TNULL;
 }
 
-void Users::clearTree(Node *p) {
-    if(!p) {
-        return;
+void Users::destroy(Node *p) {
+    if(p) {
+        destroy(p->left);
+        destroy(p->right);
+        delete p;
     }
-    clearTree(p->left);
-    clearTree(p->right);
-    delete p;
 }
 
 void Users::fixStructure(Node *p) {
@@ -112,21 +112,6 @@ void Users::add_user(string name, int f_index) {
     }
     fixStructure(p);
 }
-/*
-Node* Users::insert(Node *root, Node *p) {
-    if(this->root == NULL) {
-        this->root = p;
-    }
-    else if(p->name < root->name) {
-        root->left = insert(root->left, p);
-        root->left->parent = root;
-    }
-    else if(p->name > root->name) {
-        root->right = insert(root->right, p);
-        root->right->parent = root;
-    }
-    return root;
-}*/
 
 void Users::range_search(vector<int> v, string name1, string name2) {
     Node *p = this->root;
@@ -171,17 +156,22 @@ int Users::find_user(string name) {
     return index;
 }
 
-void Users::users_names(vector<string> v) {
+vector<string> Users::users_names() {
     Node *p = this->root;
-    users_names_Helper(v, p);
+    vector<string> v;
+    users_names_Helper(v,p);
+    return v;
 }
 
-void Users::users_names_Helper(vector<string> v, Node *p) {
+vector<string> Users::users_names_Helper(vector<string> &v, Node *p) {
     if(p) {
-        v.push_back(p->name);
         users_names_Helper(v, p->left);
+        if( p->name != "" ) {
+            v.push_back(p->name);
+        }
         users_names_Helper(v, p->right);
     }
+    return v;
 }
 
 void Users::rotateLeft(Node *p) {
