@@ -136,30 +136,58 @@ void Users::range_search_Helper(Node *p, vector<int> v, string name1, string nam
 }
 
 int Users::find_user(string name) {
+    //cout << "NAME TO SEARCH IS: " << "[" << name << "]" << endl;
     int index;
     Node *p = this->root;
+    /*
+    while (p) {
+        if (p->name == name) {
+            index = p->fileIndex;
+            return index;
+        }
+        else if (p->name < name) {
+            p = p->left;
+        }
+        else if (p->name > name) {
+            p = p->right;
+        }
+    }
+    return -1;
+    */
+    // seems to be problem with the search function actually
     while(p) {
         if(p->name == name) {
             index = p->fileIndex;
+            //cout << "FILE INDEX IS: " << p->fileIndex << endl;
             break;
         }
-        else if(p->name < name) {
+        else if(name < p->name) {
             p = p->left;
+            continue;
         }
-        else if(p->name > name) {
+        else if(name > p->name) {
             p = p->right;
+            continue;
         }
     }
     if(!p) {
         index = -1;
     }
     return index;
+    
 }
 
 vector<string> Users::users_names() {
     Node *p = this->root;
     vector<string> v;
     users_names_Helper(v,p);
+    /*
+    cout << "TESTING USERS_NAMES" << endl;
+    for (int i =0 ; i < v.size(); i++) {
+        cout << v[i] << endl;
+    }
+    cout << "FINISH TESTING USERS_NAMES" <<endl;
+    */
     return v;
 }
 
