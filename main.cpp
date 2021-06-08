@@ -1,5 +1,5 @@
 // Gama Aristondo, 8404071
-//
+// Sahil Naik, 8272395
 // main.cpp
 
 #include <iostream>
@@ -268,15 +268,17 @@ int main(int argc, char** argv) {
             profiles.seekg(0);
         }else if(input == 6) {
         
-        string lower, upper;
-            string first, ps, last, answer;
-            cout << "First user's info: " << endl;
-            cout << "Enter first name: ";
-            cin >> first;
-            cout << "Enter last name: ";
-            cin >> last;
-            cout << "Does this person have a prefix, suffix, or none: (p, s, or n)";
-            cin >> answer;
+            string lower, upper;
+            //string first, ps, last, answer;
+            cout << "First user's info (if the name has spaces, replace with '_'): " << endl;
+            cout << "Enter name: ";
+            cin >> lower;
+            replace(lower.begin(), lower.end(), '_', ' ');
+            //cout << "Enter last name: ";
+            //cin >> last;
+            //cout << "Does this person have a prefix, suffix, or none: (p, s, or n)";
+            //cin >> answer;
+            /*
             if(answer == "p") {
                 cout << "Enter: ";
                 cin >> ps;
@@ -288,13 +290,16 @@ int main(int argc, char** argv) {
             }else if(answer == "n") {
                 lower = first + " " + last;
             }
-            cout << "Second user's info: " << endl;
-            cout << "Enter first name: ";
-            cin >> first;
-            cout << "Enter last name: ";
-            cin >> last;
-            cout << "Does this person have a prefix, suffix, or none: (p, s, or n)";
-            cin >> answer;
+            */
+            cout << "Second user's info (if name has spaces, replace with '_'): " << endl;
+            cout << "Enter name: ";
+            cin >> upper;
+            replace(upper.begin(), upper.end(), '_', ' ');
+            //cout << "Enter last name: ";
+            //cin >> last;
+            //cout << "Does this person have a prefix, suffix, or none: (p, s, or n)";
+            //cin >> answer;
+            /*
             if(answer == "p") {
                 cout << "Enter: ";
                 cin >> ps;
@@ -306,7 +311,7 @@ int main(int argc, char** argv) {
             }else if(answer == "n") {
                 upper = first + " " + last;
             }
-
+            */
             
             vector<int> nameIndices;
             rbt.range_search(nameIndices, lower, upper);
