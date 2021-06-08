@@ -18,19 +18,22 @@ Users::Users() {
     this->root = this->TNULL;
 }
 
+void Users::destroy(Node *p) {
+    
+    if(p) {
+        destroy(p->left);
+        destroy(p->right);
+        delete p;
+    }
+    
+}
 
 Users::~Users() {
     destroy(root);
     //delete this->TNULL;
 }
 
-void Users::destroy(Node *p) {
-    if(p) {
-        destroy(p->left);
-        destroy(p->right);
-        delete p;
-    }
-}
+
 
 void Users::fixStructure(Node *p) {
     Node *u;

@@ -267,12 +267,48 @@ int main(int argc, char** argv) {
             profiles.clear();
             profiles.seekg(0);
         }else if(input == 6) {
-            string lower, upper;
+        
+        string lower, upper;
+            string first, ps, last, answer;
+            cout << "First user's info: " << endl;
+            cout << "Enter first name: ";
+            cin >> first;
+            cout << "Enter last name: ";
+            cin >> last;
+            cout << "Does this person have a prefix, suffix, or none: (p, s, or n)";
+            cin >> answer;
+            if(answer == "p") {
+                cout << "Enter: ";
+                cin >> ps;
+                lower = ps + " " + first + " " + last;
+            }else if(answer == "s") {
+                cout << "Enter: ";
+                cin >> ps;
+                lower = first + " " + last + " " + ps;
+            }else if(answer == "n") {
+                lower = first + " " + last;
+            }
+            cout << "Second user's info: " << endl;
+            cout << "Enter first name: ";
+            cin >> first;
+            cout << "Enter last name: ";
+            cin >> last;
+            cout << "Does this person have a prefix, suffix, or none: (p, s, or n)";
+            cin >> answer;
+            if(answer == "p") {
+                cout << "Enter: ";
+                cin >> ps;
+                upper = ps + " " + first + " " + last;
+            }else if(answer == "s") {
+                cout << "Enter: ";
+                cin >> ps;
+                upper = first + " " + last + " " + ps;
+            }else if(answer == "n") {
+                upper = first + " " + last;
+            }
+
+            
             vector<int> nameIndices;
-            cout << "Enter lower bound name (only first name necessary): ";
-            cin >> lower;
-            cout << "Enter upper bound name (only first name necessary): ";
-            cin >> upper;
             rbt.range_search(nameIndices, lower, upper);
             cout << endl;
             for(auto i : nameIndices) {
