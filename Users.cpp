@@ -114,12 +114,12 @@ void Users::add_user(string name, int f_index) {
     fixStructure(p);
 }
 
-void Users::range_search(vector<int> v, string name1, string name2) {
+void Users::range_search(vector<int> &v, string name1, string name2) {
     Node *p = this->root;
     range_search_Helper(p, v, name1, name2);
 }
 
-void Users::range_search_Helper(Node *p, vector<int> v, string name1, string name2) {
+void Users::range_search_Helper(Node *p, vector<int> &v, string name1, string name2) {
     if(!p) {
         return;
     }

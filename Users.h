@@ -30,7 +30,7 @@ class Users
 
     void add_user(std::string name, int f_index);
 
-    void range_search(std::vector<int> v, std::string name1, std::string name2);
+    void range_search(std::vector<int> &v, std::string name1, std::string name2);
     // i don't know if 
 
     int find_user(std::string name);
@@ -54,7 +54,7 @@ class Users
 
     std::vector<std::string> users_names_Helper(std::vector<std::string> &v, Node *p);
 
-    void range_search_Helper(Node *p, std::vector<int> v, std::string name1, std::string name2);
+    void range_search_Helper(Node *p, std::vector<int> &v, std::string name1, std::string name2);
     
 };
 

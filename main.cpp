@@ -152,19 +152,28 @@ int main(int argc, char** argv) {
             cout << "Enter last name: ";
             cin >> last;
             name = first + " " + last;
-            cout << "Friends of " << name << ":\n";
-            fileIndices = adjL.infoAllFriends(name);
-            for(auto i : fileIndices) {
-                string info;
-                int lineNo = 0;
-                profiles.clear();
-                profiles.seekg(0);
-                while(lineNo < i) {
-                    lineNo++;
-                    getline(profiles,info);
+            try {
+                int f_index = rbt.find_user(name);
+                if(f_index == -1) {
+                    throw f_index;
                 }
-                getline(profiles,info);
-                cout << info << endl;
+                cout << "Friends of " << name << ":\n";
+                fileIndices = adjL.infoAllFriends(name);
+                for(auto i : fileIndices) {
+                    string info;
+                    int lineNo = 0;
+                    profiles.clear();
+                    profiles.seekg(0);
+                    while(lineNo < i) {
+                        lineNo++;
+                        getline(profiles,info);
+                    }
+                    getline(profiles,info);
+                    cout << info << endl;
+                }
+            }
+            catch(int e) {
+                cout << "User does not exist";
             }
             profiles.clear();
             profiles.seekg(0);
@@ -172,9 +181,9 @@ int main(int argc, char** argv) {
             string lower, upper;
             vector<int> nameIndices;
             cout << "Enter lower bound name: ";
-            getline(cin,lower);
+            cin >> lower;
             cout << "Enter upper bound name: ";
-            getline(cin,upper);
+            cin >> upper;
             rbt.range_search(nameIndices, lower, upper);
             for(auto i : nameIndices) {
                 string info;
