@@ -87,12 +87,25 @@ int main(int argc, char** argv) {
                 profiles.seekg(0);
             }
         }else if(input == 2) {
-            string first, last, name, occupation, friends, age, friendName;
+            string first, ps, last, answer, full;
             cout << "Enter first name: ";
             cin >> first;
             cout << "Enter last name: ";
             cin >> last;
-            name = first + " " + last;
+            cout << "Does this person have a prefix, suffix, or none: (p, s, or n)";
+            cin >> answer;
+            if(answer == "p") {
+                cout << "Enter: ";
+                cin >> ps;
+                full = ps + " " + first + " " + last;
+            }else if(answer == "s") {
+                cout << "Enter: ";
+                cin >> ps;
+                full = first + " " + last + " " + ps;
+            }else if(answer == "n") {
+                full = first + " " + last;
+            }
+            string occupation, friends, age, friendName;
             cout << "Enter age: ";
             cin >> age;
             cout << "Enter occupation: ";
@@ -111,13 +124,8 @@ int main(int argc, char** argv) {
             fileIndex++;
         }else if(input == 3) {
             string friend1, friend2;
-            cout << "Enter the 1st name: ";
-            getline(cin,friend1);
-            cout << "Enter the 2nd name: ";
-            getline(cin,friend2);
-            adjL.addFriendship(friend1, friend2);
-        }else if(input == 4) {
             string first, ps, last, answer;
+            cout << "First user's info: " << endl;
             cout << "Enter first name: ";
             cin >> first;
             cout << "Enter last name: ";
@@ -127,13 +135,52 @@ int main(int argc, char** argv) {
             if(answer == "p") {
                 cout << "Enter: ";
                 cin >> ps;
-                string full = ps + " " + first + " " + last;
+                friend1 = ps + " " + first + " " + last;
             }else if(answer == "s") {
                 cout << "Enter: ";
                 cin >> ps;
-                string full = first + " " + last + " " + ps;
+                friend1 = first + " " + last + " " + ps;
             }else if(answer == "n") {
-                string full = first + " " + last;
+                friend1 = first + " " + last;
+            }
+            cout << "Second user's info: " << endl;
+            cout << "Enter first name: ";
+            cin >> first;
+            cout << "Enter last name: ";
+            cin >> last;
+            cout << "Does this person have a prefix, suffix, or none: (p, s, or n)";
+            cin >> answer;
+            cout << "Enter the 1st name: ";
+            if(answer == "p") {
+                cout << "Enter: ";
+                cin >> ps;
+                friend2 = ps + " " + first + " " + last;
+            }else if(answer == "s") {
+                cout << "Enter: ";
+                cin >> ps;
+                friend2 = first + " " + last + " " + ps;
+            }else if(answer == "n") {
+                friend2 = first + " " + last;
+            }
+            adjL.addFriendship(friend1, friend2);
+        }else if(input == 4) {
+            string first, ps, last, answer, full;
+            cout << "Enter first name: ";
+            cin >> first;
+            cout << "Enter last name: ";
+            cin >> last;
+            cout << "Does this person have a prefix, suffix, or none: (p, s, or n)";
+            cin >> answer;
+            if(answer == "p") {
+                cout << "Enter: ";
+                cin >> ps;
+                full = ps + " " + first + " " + last;
+            }else if(answer == "s") {
+                cout << "Enter: ";
+                cin >> ps;
+                full = first + " " + last + " " + ps;
+            }else if(answer == "n") {
+                full = first + " " + last;
             }
             string info;
             try {
@@ -156,15 +203,25 @@ int main(int argc, char** argv) {
             profiles.clear();
             profiles.seekg(0);
         }else if(input == 5) {
-            string first, middle, last, name;
+            string first, ps, last, answer, full;
             vector<int> fileIndices;
-            cout << "Enter first name/prefix: ";
+            cout << "Enter first name: ";
             cin >> first;
-            cout << "Enter first name/last name: ";
-            cin >> middle;
-            cout << "Enter last name/suffix: ";
+            cout << "Enter last name: ";
             cin >> last;
-            name = first + " " + middle + " " + last;
+            cout << "Does this person have a prefix, suffix, or none: (p, s, or n)";
+            cin >> answer;
+            if(answer == "p") {
+                cout << "Enter: ";
+                cin >> ps;
+                full = ps + " " + first + " " + last;
+            }else if(answer == "s") {
+                cout << "Enter: ";
+                cin >> ps;
+                full = first + " " + last + " " + ps;
+            }else if(answer == "n") {
+                full = first + " " + last;
+            }
             try {
                 int f_index = rbt.find_user(name);
                 if(f_index == -1) {
