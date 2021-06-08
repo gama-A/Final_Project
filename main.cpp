@@ -117,13 +117,14 @@ int main(int argc, char** argv) {
             getline(cin,friend2);
             adjL.addFriendship(friend1, friend2);
         }else if(input == 4) {
-            string first;
-            string last;
-            cout << "Enter first name: ";
+            string first, middle, last;
+            cout << "Enter first name/prefix: ";
             cin >> first;
-            cout << "Enter last name: ";
+            cout << "Enter first name/last name: ";
+            cin >> middle;
+            cout << "Enter last name/suffix: ";
             cin >> last;
-            string full = first + " " + last;
+            string full = first + " " + middle + " " + last;
             string info;
             try {
                 int f_index = rbt.find_user(full);
@@ -145,13 +146,15 @@ int main(int argc, char** argv) {
             profiles.clear();
             profiles.seekg(0);
         }else if(input == 5) {
-            string first, last, name;
+            string first, middle, last, name;
             vector<int> fileIndices;
-            cout << "Enter first name: ";
+            cout << "Enter first name/prefix: ";
             cin >> first;
-            cout << "Enter last name: ";
+            cout << "Enter first name/last name: ";
+            cin >> middle;
+            cout << "Enter last name/suffix: ";
             cin >> last;
-            name = first + " " + last;
+            name = first + " " + middle + " " + last;
             try {
                 int f_index = rbt.find_user(name);
                 if(f_index == -1) {
