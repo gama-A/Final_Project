@@ -209,13 +209,14 @@ int main(int argc, char** argv) {
                     lineNo++;
                     getline(profiles,info);
                 }
+                cout << endl;
                 getline(profiles,info);
                 cout << info << endl;
             }
             catch(int e) {
                 cout << "User does not exist" << endl;
             }
-            
+            cout << endl;
             profiles.clear();
             profiles.seekg(0);
         }else if(input == 5) {
