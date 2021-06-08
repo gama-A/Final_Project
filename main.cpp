@@ -86,6 +86,7 @@ int main(int argc, char** argv) {
                 profiles.clear();
                 profiles.seekg(0);
             }
+            cout << endl;
         }else if(input == 2) {
             string first, ps, last, answer, full;
             cout << "Enter first name: ";
@@ -176,9 +177,8 @@ int main(int argc, char** argv) {
                 adjL.addFriendship(friend1, friend2);
             }
             catch(int e) {
-                cout << "One or more of the user does not exist" << endl;
+                cout << setfill(' ') << setw (10) << "One or more of the user does not exist" << endl;
             }
-            
         }else if(input == 4) {
             string first, ps, last, answer, full;
             cout << "Enter first name: ";
@@ -243,7 +243,8 @@ int main(int argc, char** argv) {
                 if(f_index == -1) {
                     throw f_index;
                 }
-                cout << "Friends of " << full << ":\n";
+                cout << endl;
+                cout << left << setfill(' ') << setw(10) << "Friends of " << full << ":\n";
                 fileIndices = adjL.infoAllFriends(full);
                 for(auto i : fileIndices) {
                     string info;
@@ -261,6 +262,7 @@ int main(int argc, char** argv) {
             catch(int e) {
                 cout << "User does not exist";
             }
+            cout << endl;
             profiles.clear();
             profiles.seekg(0);
         }else if(input == 6) {
@@ -271,6 +273,7 @@ int main(int argc, char** argv) {
             cout << "Enter upper bound name (only first name necessary): ";
             cin >> upper;
             rbt.range_search(nameIndices, lower, upper);
+            cout << endl;
             for(auto i : nameIndices) {
                 string info;
                 int lineNo = 0;
@@ -283,6 +286,7 @@ int main(int argc, char** argv) {
                 getline(profiles,info);
                 cout << info << endl;
             }
+            cout << endl;
             profiles.clear();
             profiles.seekg(0);
         }else if(input == 7) {
