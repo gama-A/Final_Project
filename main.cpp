@@ -72,24 +72,13 @@ int main(int argc, char** argv) {
                 int f_index = rbt.find_user(i);
                 string info;
                 int lineNo = 0;
-                /*cout << "VALUE OF I IS: [" << i << "] , VALUE OF F_INDEX IS: " << f_index << endl;
-                f_index seems to be thorwing -1 in most cases so im gonnna try to fix that
-                string info;
-                int lineNo = 0;
-                if (lineNo == f_index) {
-                    cout << "bruh how" << endl;
-                }
-                else {
-                    cout << "lineNo: " << lineNo << ",f_index: " << f_index << endl;
-                }*/
+                profiles.clear();
+                profiles.seekg(0);
                 while(lineNo < f_index) {
-                    //cout << "INFO IS: " << info << endl;
-                    //cout << "LineNO++" << endl;
                     lineNo++;
                     getline(profiles,info);
                 }
                 getline(profiles,info);
-                // cout << "lINENO IS: " << lineNo << endl;
                 cout << info << ",";
                 adjL.printFriends(i);
                 profiles.clear();
@@ -125,46 +114,67 @@ int main(int argc, char** argv) {
         }else if(input == 4) {
             string name, info;
             cout << "Enter the name: ";
-            cin >> name;
-            int f_index = rbt.find_user(name);
-            int lineNo = 1;
-            while(lineNo != f_index && getline(profiles, info)) {
-                lineNo++;
+            getline(cin,name);
+            try {
+                int f_index = rbt.find_user(name);
+                int lineNo = 0;
+                if(f_index == -1) {
+                    throw f_index;
+                }
+                while(lineNo < f_index) {
+                    lineNo++;
+                    getline(profiles,info);
+                }
+                getline(profiles,info);
+                cout << info << endl;
             }
-            cout << info << endl;
+            catch(int e) {
+                cout << "User does not exist" << endl;
+            }
+            profiles.clear();
             profiles.seekg(0);
         }else if(input == 5) {
             string name;
             vector<int> fileIndices;
             cout << "Enter the name: ";
-            cin >> name;
+            getline(cin,name);
             cout << "Friends of " << name << ":\n";
             fileIndices = adjL.infoAllFriends(name);
             for(auto i : fileIndices) {
                 string info;
-                int lineNo = 1;
-                while(lineNo != i && getline(profiles, info)) {
+                int lineNo = 0;
+                profiles.clear();
+                profiles.seekg(0);
+                while(lineNo < i) {
                     lineNo++;
+                    getline(profiles,info);
                 }
+                getline(profiles,info);
                 cout << info << endl;
             }
+            profiles.clear();
             profiles.seekg(0);
         }else if(input == 6) {
-            string lower, upper, name;
+            string lower, upper;
             vector<int> nameIndices;
             cout << "Enter lower bound name: ";
-            cin >> lower;
+            getline(cin,lower);
             cout << "Enter upper bound name: ";
-            cin >> upper;
+            getline(cin,upper);
             rbt.range_search(nameIndices, lower, upper);
             for(auto i : nameIndices) {
                 string info;
-                int lineNo = 1;
-                while(lineNo != i && getline(profiles, info)) {
+                int lineNo = 0;
+                profiles.clear();
+                profiles.seekg(0);
+                while(lineNo < i) {
                     lineNo++;
+                    getline(profiles,info);
                 }
+                getline(profiles,info);
                 cout << info << endl;
             }
+            profiles.clear();
             profiles.seekg(0);
         }else if(input == 7) {
             status = false;
