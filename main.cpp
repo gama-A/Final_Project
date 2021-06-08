@@ -42,6 +42,7 @@ int main(int argc, char** argv) {
     profiles.open("Profile_Data.txt", fstream::out | fstream::app);
     profiles.close();
     profiles.open("Profile_Data.txt", fstream::in | fstream::out | fstream::app);
+    getline(infile,line);
     while(getline(infile,line)) {
         vector<string> inputs;
         line.erase(remove(line.begin(),line.end(),'"'),line.end());
@@ -86,13 +87,16 @@ int main(int argc, char** argv) {
                 profiles.seekg(0);
             }
         }else if(input == 2) {
-            string name, occupation, friends, age, friendName;
-            cout << "Enter the name: ";
-            getline(cin,name);
+            string first, last, name, occupation, friends, age, friendName;
+            cout << "Enter first name: ";
+            cin >> first;
+            cout << "Enter last name: ";
+            cin >> last;
+            name = first + " " + last;
             cout << "Enter age: ";
-            getline(cin,age);
+            cin >> age;
             cout << "Enter occupation: ";
-            getline(cin,occupation);
+            getline(cin, occupation);
             cout << "Enter friends (all at once,comma separated): ";
             getline(cin,friends);
             profiles << name << "," << age << "," << occupation << endl;
@@ -113,18 +117,6 @@ int main(int argc, char** argv) {
             getline(cin,friend2);
             adjL.addFriendship(friend1, friend2);
         }else if(input == 4) {
-            
-            
-            
-            
-            /*
-            string info;
-            char* name;
-            cout << "Enter the name: ";
-            cin.get(name,20);
-            string n(name);
-            n.erase(n.find_last_not_of(" \n\r\t")+1);
-            */
             string first;
             string last;
             cout << "Enter first name: ";
@@ -152,25 +144,14 @@ int main(int argc, char** argv) {
             
             profiles.clear();
             profiles.seekg(0);
-            
-            /*
-            int index = adjL.getUserIndex(full);
-        
-            cout << "persons index: " << index << endl;
-            int lineNo = 0;
-            string info;
-            while(lineNo < index) {
-                lineNo++;
-                getline(profiles,info);
-            }
-            getline(profiles, info);
-            cout << info << endl;
-            */
         }else if(input == 5) {
-            string name;
+            string first, last, name;
             vector<int> fileIndices;
-            cout << "Enter the name: ";
-            getline(cin,name);
+            cout << "Enter first name: ";
+            cin >> first;
+            cout << "Enter last name: ";
+            cin >> last;
+            name = first + " " + last;
             cout << "Friends of " << name << ":\n";
             fileIndices = adjL.infoAllFriends(name);
             for(auto i : fileIndices) {
