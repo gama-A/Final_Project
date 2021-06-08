@@ -47,6 +47,7 @@ class Friendships
         //void updatePostRBT(std::string name); // use
         std::vector<int> infoAllFriends(std::string name);
         void printFriends(std::string name);
+        //int getUserIndex(std::string name);
     private:
         
         std::unordered_map<std::string, Node_Graph*> people;

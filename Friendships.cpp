@@ -24,11 +24,12 @@ void Friendships::addFriendship(string friend1, string friend2){
 }
 
 void Friendships::printFriends(string name){
-    for (int i = 0; i < people.at(name)->friends.size(); i++) {
+    for (int i = 0; i < people[name]->friends.size(); i++) {
         cout << people[name]->friends[i] << ",";
     }
     cout << endl;
 }
+
 /*
 void Friendships::updatePostRBT(string name, Users &u)){
 
@@ -59,3 +60,9 @@ vector<int> Friendships::infoAllFriends(string name) { // indice in the profile 
     }
     return friendsPDLine;
 }
+
+/*
+int Friendships::getUserIndex(string name) {
+    return people[name]->fileIndex;
+}
+*/

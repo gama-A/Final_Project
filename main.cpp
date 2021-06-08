@@ -113,15 +113,28 @@ int main(int argc, char** argv) {
             getline(cin,friend2);
             adjL.addFriendship(friend1, friend2);
         }else if(input == 4) {
+            
+            
+            
+            
+            /*
             string info;
             char* name;
             cout << "Enter the name: ";
             cin.get(name,20);
             string n(name);
             n.erase(n.find_last_not_of(" \n\r\t")+1);
-            cout << n << endl;
+            */
+            string first;
+            string last;
+            cout << "Enter first name: ";
+            cin >> first;
+            cout << "Enter last name: ";
+            cin >> last;
+            string full = first + " " + last;
+            string info;
             try {
-                int f_index = rbt.find_user(n);
+                int f_index = rbt.find_user(full);
                 int lineNo = 0;
                 if(f_index == -1) {
                     throw f_index;
@@ -136,8 +149,23 @@ int main(int argc, char** argv) {
             catch(int e) {
                 cout << "User does not exist" << endl;
             }
+            
             profiles.clear();
             profiles.seekg(0);
+            
+            /*
+            int index = adjL.getUserIndex(full);
+        
+            cout << "persons index: " << index << endl;
+            int lineNo = 0;
+            string info;
+            while(lineNo < index) {
+                lineNo++;
+                getline(profiles,info);
+            }
+            getline(profiles, info);
+            cout << info << endl;
+            */
         }else if(input == 5) {
             string name;
             vector<int> fileIndices;

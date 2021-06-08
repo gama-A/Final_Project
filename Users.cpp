@@ -12,7 +12,7 @@ using namespace std;
 Users::Users() {
     this->TNULL = new Node;
     this->TNULL->color = 1;
-    this->TNULL->name = "-1";
+    //this->TNULL->name = "-1";
     this->TNULL->left = NULL;
     this->TNULL->right = NULL;
     this->root = this->TNULL;
