@@ -12,6 +12,7 @@ using namespace std;
 Users::Users() {
     this->TNULL = new Node;
     this->TNULL->color = 1;
+    this->TNULL->name = "-1";
     this->TNULL->left = NULL;
     this->TNULL->right = NULL;
     this->root = this->TNULL;
@@ -181,13 +182,6 @@ vector<string> Users::users_names() {
     Node *p = this->root;
     vector<string> v;
     users_names_Helper(v,p);
-    /*
-    cout << "TESTING USERS_NAMES" << endl;
-    for (int i =0 ; i < v.size(); i++) {
-        cout << v[i] << endl;
-    }
-    cout << "FINISH TESTING USERS_NAMES" <<endl;
-    */
     return v;
 }
 

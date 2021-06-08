@@ -6,6 +6,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <istream>
 #include <vector>
 #include <iomanip>
 #include <algorithm>
@@ -87,13 +88,13 @@ int main(int argc, char** argv) {
         }else if(input == 2) {
             string name, occupation, friends, age, friendName;
             cout << "Enter the name: ";
-            cin >> name;
+            getline(cin,name);
             cout << "Enter age: ";
-            cin >> age;
+            getline(cin,age);
             cout << "Enter occupation: ";
-            cin >> occupation;
+            getline(cin,occupation);
             cout << "Enter friends (all at once,comma separated): ";
-            cin >> friends;
+            getline(cin,friends);
             profiles << name << "," << age << "," << occupation << endl;
             rbt.add_user(name, fileIndex);
             vector<string> f;
@@ -107,16 +108,20 @@ int main(int argc, char** argv) {
         }else if(input == 3) {
             string friend1, friend2;
             cout << "Enter the 1st name: ";
-            cin >> friend1;
+            getline(cin,friend1);
             cout << "Enter the 2nd name: ";
-            cin >> friend2;
+            getline(cin,friend2);
             adjL.addFriendship(friend1, friend2);
         }else if(input == 4) {
-            string name, info;
+            string info;
+            char* name;
             cout << "Enter the name: ";
-            getline(cin,name);
+            cin.get(name,20);
+            string n(name);
+            n.erase(n.find_last_not_of(" \n\r\t")+1);
+            cout << n << endl;
             try {
-                int f_index = rbt.find_user(name);
+                int f_index = rbt.find_user(n);
                 int lineNo = 0;
                 if(f_index == -1) {
                     throw f_index;
