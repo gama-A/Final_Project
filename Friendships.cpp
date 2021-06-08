@@ -1,6 +1,8 @@
 #include "Friendships.h"
 #include "Users.h"
 #include <iostream>
+#include <algorithm>
+#include <vector>
 using namespace std;
 
 Friendships::Friendships(){
@@ -11,14 +13,28 @@ void Friendships::insert(string name, vector<string> friendsList, int fileLine) 
     n->fileIndex = fileLine;
     string L;
     for (int i =0 ; i < friendsList.size(); i++) {
+        //this->addFriendship(name, friendsList[i]);
         L = friendsList[i];
         n->friends.push_back(L);
+        //people[L]->friends.push_back(name);
     }
     people[name] = n;
 
 }
 
+void Friendships::insertSingle(string name, int fileLine) {
+    Node_Graph *n = new Node_Graph();
+    n->name = name;
+    n->fileIndex = fileLine;
+    people[name] = n;
+}
 void Friendships::addFriendship(string friend1, string friend2){
+    vector<string>::iterator it;
+    it = find (people[friend1]->friends.begin(), people[friend1]->friends.end(), friend2);
+    if (it != people[friend1]->friends.end()){
+        cout << "Friendship already exists" << endl;
+        return;
+    }
     people[friend1]->friends.push_back(friend2);
     people[friend2]->friends.push_back(friend1);
 }

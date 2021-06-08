@@ -18,9 +18,10 @@ Users::Users() {
     this->root = this->TNULL;
 }
 
+
 Users::~Users() {
-    destroy(this->root);
-    delete this->TNULL;
+    destroy(root);
+    //delete this->TNULL;
 }
 
 void Users::destroy(Node *p) {

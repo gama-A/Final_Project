@@ -41,8 +41,9 @@ class Friendships
 {
     public:
         Friendships();
-        void insert(std::string name, std::vector<std::string> friendsList, int fileLine); // figure out a way to grab all the friends 
+        void insert(std::string name, std::vector<std::string> friendsList, int fileIndex); // figure out a way to grab all the friends 
         // friendsList needs to be created in main once we grab all the friends of the person from the csv file.
+        void insertSingle(std::string name, int fileIndex);
         void addFriendship(std::string friend1, std::string friend2);
         //void updatePostRBT(std::string name); // use
         std::vector<int> infoAllFriends(std::string name);

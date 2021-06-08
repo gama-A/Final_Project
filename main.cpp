@@ -108,19 +108,24 @@ int main(int argc, char** argv) {
             string occupation, friends, age, friendName;
             cout << "Enter age: ";
             cin >> age;
-            cout << "Enter occupation: ";
-            getline(cin, occupation);
-            cout << "Enter friends (all at once,comma separated): ";
-            getline(cin,friends);
-            profiles << name << "," << age << "," << occupation << endl;
-            rbt.add_user(name, fileIndex);
+            cout << "Enter occupation (Fill spaces with '_'): ";
+            cin >> occupation;
+            replace(occupation.begin(), occupation.end(), '_', ' ');
+            cout << "Enter friends (all at once,comma separated) (Replace space in names with '_'): ";
+            cin >> friends;
+            replace(friends.begin(), friends.end(), '_', ' ');
+            profiles << full << "," << age << "," << occupation << endl;
+            rbt.add_user(full, fileIndex);
             vector<string> f;
             stringstream F(friends);
             while(F.good()) {
-                getline(F,friendName,'"');
+                getline(F,friendName,',');
                 f.push_back(friendName);
             }
-            adjL.insert(name, f, fileIndex);
+            adjL.insertSingle(full, fileIndex);
+            for (auto i : f) {
+                adjL.addFriendship(full, i);
+            }
             fileIndex++;
         }else if(input == 3) {
             string friend1, friend2;
@@ -150,7 +155,6 @@ int main(int argc, char** argv) {
             cin >> last;
             cout << "Does this person have a prefix, suffix, or none: (p, s, or n)";
             cin >> answer;
-            cout << "Enter the 1st name: ";
             if(answer == "p") {
                 cout << "Enter: ";
                 cin >> ps;
@@ -162,7 +166,19 @@ int main(int argc, char** argv) {
             }else if(answer == "n") {
                 friend2 = first + " " + last;
             }
-            adjL.addFriendship(friend1, friend2);
+            try {
+                int f_index1 = rbt.find_user(friend1);
+                int f_index2 = rbt.find_user(friend2);
+                int lineNo = 0;
+                if(f_index1 == -1 || f_index2 == -1) {
+                    throw -1;
+                }
+                adjL.addFriendship(friend1, friend2);
+            }
+            catch(int e) {
+                cout << "One or more of the user does not exist" << endl;
+            }
+            
         }else if(input == 4) {
             string first, ps, last, answer, full;
             cout << "Enter first name: ";
@@ -223,12 +239,12 @@ int main(int argc, char** argv) {
                 full = first + " " + last;
             }
             try {
-                int f_index = rbt.find_user(name);
+                int f_index = rbt.find_user(full);
                 if(f_index == -1) {
                     throw f_index;
                 }
-                cout << "Friends of " << name << ":\n";
-                fileIndices = adjL.infoAllFriends(name);
+                cout << "Friends of " << full << ":\n";
+                fileIndices = adjL.infoAllFriends(full);
                 for(auto i : fileIndices) {
                     string info;
                     int lineNo = 0;
