@@ -24,7 +24,7 @@ void Friendships::addFriendship(string friend1, string friend2){
 }
 
 void Friendships::printFriends(string name){
-    for (int i = 0; i < people[name]->friends.size(); i++) {
+    for (int i = 0; i < people.at(name)->friends.size(); i++) {
         cout << people[name]->friends[i] << ",";
     }
     cout << endl;
