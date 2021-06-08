@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
     infile.open(file);
     string line, sub;
     string name, age, occupation;
-    int fileIndex = 1;
+    int fileIndex = 0;
     fstream profiles;
     profiles.open("Profile_Data.txt", fstream::out | fstream::app);
     profiles.close();
@@ -70,8 +70,10 @@ int main(int argc, char** argv) {
             names = rbt.users_names();
             for(auto i : names) {
                 int f_index = rbt.find_user(i);
-                cout << "VALUE OF I IS: [" << i << "] , VALUE OF F_INDEX IS: " << f_index << endl;
-                // f_index seems to be thorwing -1 in most cases so im gonnna try to fix that
+                string info;
+                int lineNo = 0;
+                /*cout << "VALUE OF I IS: [" << i << "] , VALUE OF F_INDEX IS: " << f_index << endl;
+                f_index seems to be thorwing -1 in most cases so im gonnna try to fix that
                 string info;
                 int lineNo = 0;
                 if (lineNo == f_index) {
@@ -79,13 +81,15 @@ int main(int argc, char** argv) {
                 }
                 else {
                     cout << "lineNo: " << lineNo << ",f_index: " << f_index << endl;
-                }
-                while(lineNo != f_index && getline(profiles,info)) {
+                }*/
+                while(lineNo < f_index) {
                     //cout << "INFO IS: " << info << endl;
-                cout << "LineNO++" << endl;
+                    //cout << "LineNO++" << endl;
                     lineNo++;
+                    getline(profiles,info);
                 }
-                cout << "lINENO IS: " << lineNo << endl;
+                getline(profiles,info);
+                // cout << "lINENO IS: " << lineNo << endl;
                 cout << info << ",";
                 adjL.printFriends(i);
                 profiles.clear();
