@@ -117,14 +117,24 @@ int main(int argc, char** argv) {
             getline(cin,friend2);
             adjL.addFriendship(friend1, friend2);
         }else if(input == 4) {
-            string first, middle, last;
-            cout << "Enter first name/prefix: ";
+            string first, ps, last, answer;
+            cout << "Enter first name: ";
             cin >> first;
-            cout << "Enter first name/last name: ";
-            cin >> middle;
-            cout << "Enter last name/suffix: ";
+            cout << "Enter last name: ";
             cin >> last;
-            string full = first + " " + middle + " " + last;
+            cout << "Does this person have a prefix, suffix, or none: (p, s, or n)";
+            cin >> answer;
+            if(answer == "p") {
+                cout << "Enter: ";
+                cin >> ps;
+                string full = ps + " " + first + " " + last;
+            }else if(answer == "s") {
+                cout << "Enter: ";
+                cin >> ps;
+                string full = first + " " + last + " " + ps;
+            }else if(answer == "n") {
+                string full = first + " " + last;
+            }
             string info;
             try {
                 int f_index = rbt.find_user(full);
@@ -183,9 +193,9 @@ int main(int argc, char** argv) {
         }else if(input == 6) {
             string lower, upper;
             vector<int> nameIndices;
-            cout << "Enter lower bound name: ";
+            cout << "Enter lower bound name (only first name necessary): ";
             cin >> lower;
-            cout << "Enter upper bound name: ";
+            cout << "Enter upper bound name (only first name necessary): ";
             cin >> upper;
             rbt.range_search(nameIndices, lower, upper);
             for(auto i : nameIndices) {
